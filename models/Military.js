@@ -17,6 +17,11 @@ const MilitarySchema = new Schema({
     dateEnlisted: {
         type: Date,
         required: true
+    },
+    createdBy: { // Добавляем поле createdBy
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
 

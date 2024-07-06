@@ -12,4 +12,4 @@ module.exports = function(req, res, next) {
     } catch (e) {
         res.status(400).json({ msg: 'Token is not valid' });
     }
-};s
+};

@@ -5,7 +5,8 @@ exports.createMilitary = (req, res) => {
         name: req.body.name,
         rank: req.body.rank,
         salary: req.body.salary,
-        dateEnlisted: req.body.dateEnlisted
+        dateEnlisted: req.body.dateEnlisted,
+        createdBy: req.user.id // Сохраняем ID создателя
     });
 
     newMilitary.save()
@@ -14,19 +15,30 @@ exports.createMilitary = (req, res) => {
 };
 
 exports.getMilitaries = (req, res) => {
-    Military.find()
+    Military.find({ createdBy: req.user.id }) // Фильтрация по ID создателя
         .sort({ dateEnlisted: -1 })
         .then(militaries => res.json(militaries))
         .catch(err => res.status(500).json({ error: err.message }));
 };
+
 exports.updateMilitary = (req, res) => {
-    Military.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then(military => res.json(military))
+    Military.findOneAndUpdate({ _id: req.params.id, createdBy: req.user.id }, req.body, { new: true }) // Фильтрация по ID создателя
+        .then(military => {
+            if (!military) {
+                return res.status(404).json({ message: 'Military record not found' });
+            }
+            res.json(military);
+        })
         .catch(err => res.status(500).json({ error: err.message }));
 };
 
 exports.deleteMilitary = (req, res) => {
-    Military.findByIdAndDelete(req.params.id)
-        .then(() => res.json({ success: true }))
+    Military.findOneAndDelete({ _id: req.params.id, createdBy: req.user.id }) // Фильтрация по ID создателя
+        .then(military => {
+            if (!military) {
+                return res.status(404).json({ message: 'Military record not found' });
+            }
+            res.json({ success: true });
+        })
         .catch(err => res.status(500).json({ error: err.message }));
 };

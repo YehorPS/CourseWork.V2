@@ -52,7 +52,44 @@
 
     <form id="militaryForm">
         <input type="text" id="militaryName" placeholder="Name" required>
-        <input type="text" id="militaryRank" placeholder="Rank" required>
+        <select id="militaryRank" required>
+            <option value="">Select Rank</option>
+            <option value="Рядовий">Рядовий</option>
+            <option value="Матрос">Матрос</option>
+            <option value="Старший солдат">Старший солдат</option>
+            <option value="Старший матрос">Старший матрос</option>
+            <option value="Молодший сержант">Молодший сержант</option>
+            <option value="Сержант">Сержант</option>
+            <option value="Старший сержант">Старший сержант</option>
+            <option value="Головний сержант">Головний сержант</option>
+            <option value="Старшина">Старшина</option>
+            <option value="Головний старшина">Головний старшина</option>
+            <option value="Головний корабельний старшина">Головний корабельний старшина</option>
+            <option value="Прапорщик">Прапорщик</option>
+            <option value="Мічман">Мічман</option>
+            <option value="Старший прапорщик">Старший прапорщик</option>
+            <option value="Старший мічман">Старший мічман</option>
+            <option value="Молодший лейтенант">Молодший лейтенант</option>
+            <option value="Лейтенант">Лейтенант</option>
+            <option value="Старший лейтенант">Старший лейтенант</option>
+            <option value="Капітан">Капітан</option>
+            <option value="Капітан-лейтенант">Капітан-лейтенант</option>
+            <option value="Майор">Майор</option>
+            <option value="Капітан 3 рангу">Капітан 3 рангу</option>
+            <option value="Підполковник">Підполковник</option>
+            <option value="Капітан 2 рангу">Капітан 2 рангу</option>
+            <option value="Полковник">Полковник</option>
+            <option value="Капітан 1 рангу">Капітан 1 рангу</option>
+            <option value="Бригадний генерал">Бригадний генерал</option>
+            <option value="Коммодор">Коммодор</option>
+            <option value="Генерал-майор">Генерал-майор</option>
+            <option value="Контр-адмірал">Контр-адмірал</option>
+            <option value="Генерал-лейтенант">Генерал-лейтенант</option>
+            <option value="Віце-адмірал">Віце-адмірал</option>
+            <option value="Генерал-полковник">Генерал-полковник</option>
+            <option value="Адмірал">Адмірал</option>
+            <option value="Генерал армії України">Генерал армії України</option>
+        </select>
         <input type="number" id="militarySalary" placeholder="Salary" required>
         <input type="date" id="militaryDateEnlisted" placeholder="Date Enlisted" required>
         <button type="submit">Add Military</button>
@@ -69,7 +106,7 @@
             </tr>
         </thead>
         <tbody>
-            
+            <!-- Rows will be populated by JavaScript -->
         </tbody>
     </table>
 
@@ -81,7 +118,44 @@
             <span class="close">&times;</span>
             <form id="editMilitaryForm">
                 <input type="text" id="editMilitaryName" placeholder="Name" required>
-                <input type="text" id="editMilitaryRank" placeholder="Rank" required>
+                <select id="editMilitaryRank" required>
+                    <option value="">Select Rank</option>
+                    <option value="Рядовий">Рядовий</option>
+                    <option value="Матрос">Матрос</option>
+                    <option value="Старший солдат">Старший солдат</option>
+                    <option value="Старший матрос">Старший матрос</option>
+                    <option value="Молодший сержант">Молодший сержант</option>
+                    <option value="Сержант">Сержант</option>
+                    <option value="Старший сержант">Старший сержант</option>
+                    <option value="Головний сержант">Головний сержант</option>
+                    <option value="Старшина">Старшина</option>
+                    <option value="Головний старшина">Головний старшина</option>
+                    <option value="Головний корабельний старшина">Головний корабельний старшина</option>
+                    <option value="Прапорщик">Прапорщик</option>
+                    <option value="Мічман">Мічман</option>
+                    <option value="Старший прапорщик">Старший прапорщик</option>
+                    <option value="Старший мічман">Старший мічман</option>
+                    <option value="Молодший лейтенант">Молодший лейтенант</option>
+                    <option value="Лейтенант">Лейтенант</option>
+                    <option value="Старший лейтенант">Старший лейтенант</option>
+                    <option value="Капітан">Капітан</option>
+                    <option value="Капітан-лейтенант">Капітан-лейтенант</option>
+                    <option value="Майор">Майор</option>
+                    <option value="Капітан 3 рангу">Капітан 3 рангу</option>
+                    <option value="Підполковник">Підполковник</option>
+                    <option value="Капітан 2 рангу">Капітан 2 рангу</option>
+                    <option value="Полковник">Полковник</option>
+                    <option value="Капітан 1 рангу">Капітан 1 рангу</option>
+                    <option value="Бригадний генерал">Бригадний генерал</option>
+                    <option value="Коммодор">Коммодор</option>
+                    <option value="Генерал-майор">Генерал-майор</option>
+                    <option value="Контр-адмірал">Контр-адмірал</option>
+                    <option value="Генерал-лейтенант">Генерал-лейтенант</option>
+                    <option value="Віце-адмірал">Віце-адмірал</option>
+                    <option value="Генерал-полковник">Генерал-полковник</option>
+                    <option value="Адмірал">Адмірал</option>
+                    <option value="Генерал армії України">Генерал армії України</option>
+                </select>
                 <input type="number" id="editMilitarySalary" placeholder="Salary" required>
                 <input type="date" id="editMilitaryDateEnlisted" placeholder="Date Enlisted" required>
                 <button type="submit">Save Changes</button>

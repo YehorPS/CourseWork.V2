@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const editModal = document.getElementById('editModal');
     const editMilitaryForm = document.getElementById('editMilitaryForm');
     const closeModal = document.getElementsByClassName('close')[0];
+   
 
     let token = localStorage.getItem('token');
     let currentMilitaryId = null;
@@ -85,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-      
+        if (token && militaryTable) {
+            loadMilitaries();
+        }
 
         async function loadMilitaries() {
             try {
@@ -94,10 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Authorization': token
                     }
                 });
-    
-                if (!res.ok) {
-                    throw new Error('Failed to fetch data');
-                }
     
                 const militaries = await res.json();
                 militaryTable.innerHTML = '';
@@ -113,17 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const salaryCell = row.insertCell(2);
             const dateEnlistedCell = row.insertCell(3);
             const actionsCell = row.insertCell(4);
-
+    
             nameCell.textContent = military.name;
             rankCell.textContent = military.rank;
             salaryCell.textContent = military.salary;
             dateEnlistedCell.textContent = new Date(military.dateEnlisted).toDateString();
-
+    
             actionsCell.innerHTML = `
                 <button class="edit-btn" data-id="${military._id}">Edit</button>
                 <button class="delete-btn" data-id="${military._id}">Delete</button>
             `;
-
+    
             row.querySelector('.edit-btn').addEventListener('click', () => openEditModal(military));
             row.querySelector('.delete-btn').addEventListener('click', () => deleteMilitary(military._id));
         }
