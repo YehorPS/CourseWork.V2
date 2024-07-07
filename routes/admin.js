@@ -6,5 +6,6 @@ const adminAuth = require('../middleware/adminAuth');  // Middleware to check ad
 
 router.get('/users', auth, adminAuth, adminController.getUsers);
 router.post('/ban/:id', auth, adminAuth, adminController.banUser);
+router.post('/unban/:id', auth, adminAuth, adminController.unbanUser);
 
 module.exports = router;

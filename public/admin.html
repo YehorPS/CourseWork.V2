@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 5px 10px;
+            color: white;
+            background-color: red;
+            border: none;
+            cursor: pointer;
+        }
+        .unban-button {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const usersTable = document.getElementById('usersTable').getElementsByTagName('tbody')[0];
+            const token = localStorage.getItem('token');
+
+            // Fetch and display users
+            async function loadUsers() {
+                const res = await fetch('/api/admin/users', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
+                const users = await res.json();
+                usersTable.innerHTML = '';
+                users.forEach(user => addUserRow(user));
+            }
+
+            function addUserRow(user) {
+                const row = usersTable.insertRow();
+                const nameCell = row.insertCell(0);
+                const emailCell = row.insertCell(1);
+                const statusCell = row.insertCell(2);
+                const actionCell = row.insertCell(3);
+
+                nameCell.textContent = user.name;
+                emailCell.textContent = user.email;
+                statusCell.textContent = user.isBanned ? `Banned (${user.banReason})` : 'Active';
+                actionCell.innerHTML = user.isBanned
+                    ? `<button class="unban-button" onclick="unbanUser('${user._id}')">Unban</button>`
+                    : `<button onclick="banUser('${user._id}')">Ban</button>`;
+            }
+
+            // Ban user
+            async function banUser(userId) {
+                const reason = prompt("Please enter the reason for banning the user:");
+                if (reason) {
+                    const res = await fetch(`/api/admin/ban/${userId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': token
+                        },
+                        body: JSON.stringify({ reason })
+                    });
+                    if (res.ok) {
+                        loadUsers();
+                    } else {
+                        console.error('Error banning user:', await res.json());
+                    }
+                }
+            }
+
+            // Unban user
+            async function unbanUser(userId) {
+                const res = await fetch(`/api/admin/unban/${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token
+                    },
+                    body: JSON.stringify({})
+                });
+                if (res.ok) {
+                    loadUsers();
+                } else {
+                    console.error('Error unbanning user:', await res.json());
+                }
+            }
+
+            window.banUser = banUser;  // Expose the function to the global scope
+            window.unbanUser = unbanUser;  // Expose the function to the global scope
+
+            loadUsers();
+        });
+    </script>
+</body>
+</html>

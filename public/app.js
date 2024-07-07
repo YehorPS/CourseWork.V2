@@ -52,11 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('token', data.token);
                 window.location.href = 'military.html';
             } else {
-                console.log(data);
+                if (data.message) {
+                    alert(data.message);  // Відображаємо причину бану
+                } else {
+                    console.log(data);
+                }
             }
         });
     }
-
     if (militaryForm) {
         militaryForm.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -127,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.querySelector('.delete-btn').addEventListener('click', () => deleteMilitary(military._id));
         }
 
-      
+        
 
         function openEditModal(military) {
             currentMilitaryId = military._id;

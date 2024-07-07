@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -15,9 +14,17 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        default: 'user'
+    },
     isBanned: {
         type: Boolean,
         default: false
+    },
+    banReason: {
+        type: String,
+        default: ''
     }
 });
 

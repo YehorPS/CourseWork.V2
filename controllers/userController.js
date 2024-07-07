@@ -28,6 +28,7 @@ exports.register = (req, res) => {
         }
     });
 };
+
 exports.login = (req, res) => {
     const { email, password } = req.body;
 
@@ -36,9 +37,13 @@ exports.login = (req, res) => {
             return res.status(404).json({ email: 'User not found' });
         }
 
+        if (user.isBanned) {
+            return res.status(403).json({ message: `User is banned. Reason: ${user.banReason}` });
+        }
+
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-                const payload = { id: user.id, name: user.name };
+                const payload = { id: user.id, name: user.name, role: user.role };
 
                 jwt.sign(payload, 'secret', { expiresIn: 3600 }, (err, token) => {
                     res.json({ success: true, token: 'Bearer ' + token });
