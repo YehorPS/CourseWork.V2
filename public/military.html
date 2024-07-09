@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Military Personnel</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        select {
+    width: 100%; /* Зробіть ширину випадаючих списків на весь батьківський контейнер */
+    padding: 8px; /* Збільште внутрішній відступ для кращої видимості та взаємодії */
+    font-size: inherit; /* Використовуйте той же розмір шрифту, що і в інших елементах форми */
+    box-sizing: border-box; /* Враховуйте padding у відношенні до загального розміру елемента */
+}
+    </style>
+</head>
+<body>
+    <h1>Military Personnel</h1>
+
+    <form id="militaryForm">
+        <input type="text" id="militaryFirstName" placeholder="Ім'я" required>
+        <input type="text" id="militaryLastName" placeholder="Прізвище" required>
+        <input type="text" id="militaryMiddleName" placeholder="По батькові" required>
+        <input type="tel" id="militaryPhone" placeholder="Номер телефону" required>
+        <select id="militaryRank" required>
+            <option value="">Оберіть звання</option>
+            <option value="Рядовий">Рядовий</option>
+            <option value="Матрос">Матрос</option>
+            <option value="Старший солдат">Старший солдат</option>
+            <option value="Старший матрос">Старший матрос</option>
+            <option value="Молодший сержант">Молодший сержант</option>
+            <option value="Сержант">Сержант</option>
+            <option value="Старший сержант">Старший сержант</option>
+            <option value="Головний сержант">Головний сержант</option>
+            <option value="Старшина">Старшина</option>
+            <option value="Головний старшина">Головний старшина</option>
+            <option value="Головний корабельний старшина">Головний корабельний старшина</option>
+            <option value="Прапорщик">Прапорщик</option>
+            <option value="Мічман">Мічман</option>
+            <option value="Старший прапорщик">Старший прапорщик</option>
+            <option value="Старший мічман">Старший мічман</option>
+            <option value="Молодший лейтенант">Молодший лейтенант</option>
+            <option value="Лейтенант">Лейтенант</option>
+            <option value="Старший лейтенант">Старший лейтенант</option>
+            <option value="Капітан">Капітан</option>
+            <option value="Капітан-лейтенант">Капітан-лейтенант</option>
+            <option value="Майор">Майор</option>
+            <option value="Капітан 3 рангу">Капітан 3 рангу</option>
+            <option value="Підполковник">Підполковник</option>
+            <option value="Капітан 2 рангу">Капітан 2 рангу</option>
+            <option value="Полковник">Полковник</option>
+            <option value="Капітан 1 рангу">Капітан 1 рангу</option>
+            <option value="Бригадний генерал">Бригадний генерал</option>
+            <option value="Коммодор">Коммодор</option>
+            <option value="Генерал-майор">Генерал-майор</option>
+            <option value="Контр-адмірал">Контр-адмірал</option>
+            <option value="Генерал-лейтенант">Генерал-лейтенант</option>
+            <option value="Віце-адмірал">Віце-адмірал</option>
+            <option value="Генерал-полковник">Генерал-полковник</option>
+            <option value="Адмірал">Адмірал</option>
+            <option value="Генерал армії України">Генерал армії України</option>
+        </select>
+        <input type="number" id="militarySalary" placeholder="Зарплата" required>
+        <input type="date" id="militaryDateEnlisted" placeholder="Дата зарахування" required>
+        <select id="militaryContract" required>
+            <option value="" disabled selected>Термін контракту</option>
+            <option value="1">1 рік</option>
+            <option value="2">2 роки</option>
+            <option value="3">3 роки</option>
+            <option value="5">5 років</option>
+            <option value="10">10 років</option>
+        </select>
+        <button type="submit">Додати</button>
+    </form>
+
+    <table id="militaryTable">
+        <thead>
+            <tr>
+                <th>Ім'я</th>
+                <th>Прізвище</th>
+                <th>По батькові</th>
+                <th>Звання</th>
+                <th>Зарплата</th>
+                <th>Дата зарахування</th>
+                <th>Номер телефону</th>
+                <th>Термін контракту</th>
+                <th>Залишок контракту</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <a href="/login">Повернутися на головну</a>
+
+    <!-- Modal for Editing -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="editMilitaryForm">
+                <input type="text" id="editMilitaryFirstName" placeholder="Ім'я" required>
+                <input type="text" id="editMilitaryLastName" placeholder="Прізвище" required>
+                <input type="text" id="editMilitaryMiddleName" placeholder="По батькові" required>
+                <input type="tel" id="editMilitaryPhone" placeholder="Номер телефону" required>
+                <select id="editMilitaryRank" required>
+                    <option value="">Select Rank</option>
+                    <option value="Рядовий">Рядовий</option>
+                    <option value="Матрос">Матрос</option>
+                    <option value="Старший солдат">Старший солдат</option>
+                    <option value="Старший матрос">Старший матрос</option>
+                    <option value="Молодший сержант">Молодший сержант</option>
+                    <option value="Сержант">Сержант</option>
+                    <option value="Старший сержант">Старший сержант</option>
+                    <option value="Головний сержант">Головний сержант</option>
+                    <option value="Старшина">Старшина</option>
+                    <option value="Головний старшина">Головний старшина</option>
+                    <option value="Головний корабельний старшина">Головний корабельний старшина</option>
+                    <option value="Прапорщик">Прапорщик</option>
+                    <option value="Мічман">Мічман</option>
+                    <option value="Старший прапорщик">Старший прапорщик</option>
+                    <option value="Старший мічман">Старший мічман</option>
+                    <option value="Молодший лейтенант">Молодший лейтенант</option>
+                    <option value="Лейтенант">Лейтенант</option>
+                    <option value="Старший лейтенант">Старший лейтенант</option>
+                    <option value="Капітан">Капітан</option>
+                    <option value="Капітан-лейтенант">Капітан-лейтенант</option>
+                    <option value="Майор">Майор</option>
+                    <option value="Капітан 3 рангу">Капітан 3 рангу</option>
+                    <option value="Підполковник">Підполковник</option>
+                    <option value="Капітан 2 рангу">Капітан 2 рангу</option>
+                    <option value="Полковник">Полковник</option>
+                    <option value="Капітан 1 рангу">Капітан 1 рангу</option>
+                    <option value="Бригадний генерал">Бригадний генерал</option>
+                    <option value="Коммодор">Коммодор</option>
+                    <option value="Генерал-майор">Генерал-майор</option>
+                    <option value="Контр-адмірал">Контр-адмірал</option>
+                    <option value="Генерал-лейтенант">Генерал-лейтенант</option>
+                    <option value="Віце-адмірал">Віце-адмірал</option>
+                    <option value="Генерал-полковник">Генерал-полковник</option>
+                    <option value="Адмірал">Адмірал</option>
+                    <option value="Генерал армії України">Генерал армії України</option>
+                </select>
+                <input type="number" id="editMilitarySalary" placeholder="Зарплата" required>
+                <input type="date" id="editMilitaryDateEnlisted" placeholder="Дата зарахування" required>
+                <select id="editMilitaryContract" required>
+                    <option value="" disabled selected>Термін контракту</option>
+            <option value="1">1 рік</option>
+            <option value="2">2 роки</option>
+            <option value="3">3 роки</option>
+            <option value="5">5 років</option>
+            <option value="10">10 років</option>
+                </select>
+                <button type="submit">Зберегти зміни</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="/app.js"></script>
+</body>
+</html>
