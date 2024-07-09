@@ -46,11 +46,15 @@ exports.login = (req, res) => {
                 const payload = { id: user.id, name: user.name, role: user.role };
 
                 jwt.sign(payload, 'secret', { expiresIn: 3600 }, (err, token) => {
-                    res.json({ success: true, token: 'Bearer ' + token });
+                    if (err) throw err;
+                    res.json({ success: true, token: 'Bearer ' + token, role: user.role });
                 });
             } else {
                 return res.status(400).json({ password: 'Password incorrect' });
             }
         });
+    }).catch(err => {
+        console.error('Error finding user:', err);
+        res.status(500).json({ error: 'Server error' });
     });
 };

@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Перевірка ролі користувача
                     if (data.role === 'admin') {
                         // Якщо користувач є адміністратором, перенаправляємо на сторінку адміна
-                        window.location.href = '/admin'; // Замініть '/admin' на шлях до вашої сторінки адміна
+                        window.location.href = 'admin.html'; // Замініть '/admin' на шлях до вашої сторінки адміна
                     } else {
                         // Інакше перенаправляємо на сторінку з військовими
                         window.location.href = 'military.html';
@@ -81,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
     
 
     if (militaryForm) {
