@@ -54,4 +54,7 @@ exports.login = (req, res) => {
         });
     });
 };
+<<<<<<< HEAD
 //
+=======
+>>>>>>> 9fc1edf16f5309420043d7fdcce1a953f34d3379
