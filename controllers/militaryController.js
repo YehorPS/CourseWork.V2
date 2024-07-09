@@ -1,6 +1,7 @@
 const Military = require('../models/Military');
 
 exports.createMilitary = (req, res) => {
+<<<<<<< HEAD
     const { firstName, lastName, middleName, rank, salary, dateEnlisted, phone, contract } = req.body;
 
     const enlistmentDate = new Date(dateEnlisted);
@@ -20,6 +21,14 @@ exports.createMilitary = (req, res) => {
         contract,
         remainingContract: remainingContractYears, // Додаємо залишок контракту
         createdBy: req.user.id
+=======
+    const newMilitary = new Military({
+        name: req.body.name,
+        rank: req.body.rank,
+        salary: req.body.salary,
+        dateEnlisted: req.body.dateEnlisted,
+        createdBy: req.user.id // Сохраняем ID создателя
+>>>>>>> 9fc1edf16f5309420043d7fdcce1a953f34d3379
     });
 
     newMilitary.save()

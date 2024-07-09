@@ -58,3 +58,7 @@ exports.login = (req, res) => {
         res.status(500).json({ error: 'Server error' });
     });
 };
+<<<<<<< HEAD
+//
+=======
+>>>>>>> 9fc1edf16f5309420043d7fdcce1a953f34d3379
